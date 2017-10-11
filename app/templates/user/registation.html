@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}高乎-注册账户{% endblock %}
+
+{% block page_content %}
+{{ super() }}
+<div class="page-header">
+    <h1>欢迎使用高乎，注册自己的账户就可以和大家一起玩耍啦。</h1>
+</div>
+<div class="col-md-4">
+    {{ wtf.quick_form(form) }}
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+<ul class="posts">
+    <div class="row clearfix">
+    <div style="margin-top:5px;margin-bottom:10px;margin-left:10px;"class="col-md-12 column" >
+        <h1 ><a href = "{{url_for('.post',id=question.id) }}">{{ question.body}}</a></h1>
+    </div>
+    </div>
+    {% for answer in answers %}
+    <div class="row clearfix">
+        <div class="col-md-1 column">
+            <div class="btn-group-vertical" role="group" aria-label="...">
+                <div class="col-md-6 column">
+                    <div type="button" class="btn btn-sm">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    </div>
+                    <div type="button" class="btn btn-sm">
+                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    </div>
+                    <p style="margin-left:5px;">233</p>
+                </div>
+                <div class="col-md-6 column">
+                <img class="img-rounded profile-thumbnail" src="{{ answer.author.gravatar(size=60) }} " height="40" width="40"
+                     style="margin-top:10px;">
+                 </div>
+            </div>
+
+        </div>
+        <div class="col-md-11 column">
+            <div class="row clearfix">
+                <div class="col-md-12 column" >
+                    <a href="{{ url_for('.user', username=answer.author.username) }}"></a>
+                </div>
+            </div>
+            {{answer.author.about_me}}
+            <div class="row clearfix">
+
+                <div class="col-md-12 column" style="margin-top:5px;margin-bottom:10px;">
+                    <div class="post-date">{{ moment(answer.timestamp).fromNow() }}</div>
+                    <div class="post-author"><a href="{{ url_for('.user', username=answer.author.username) }}">{{ answer.author.username }}</a></div>
+                    <div class="post-body" style="margin-top:5px;margin-bottom:10px;border-top: 1px solid;">
+                        {% if answer.body_html %}
+                            {{ answer.body_html | safe }}
+                        {% else %}
+                            {{ answer.body }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div class="post-footer">
+                        {% if current_user == answer.author %}
+                        <a href="{{ url_for('.edit_profile', id=answer.id) }}">
+                            <span class="label label-primary">编辑</span>
+                        </a>
+                        {% elif current_user.is_administrator() %}
+                        <a href="{{ url_for('.edit_profile_admin', id=answer.id) }}">
+                            <span class="label label-danger">编辑 [管理员]</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+    </div>
+    {% endfor %}
+    {% if current_user.can(Permission.COMMENT) %}
+    <ul class="posts">
+        {{ wtf.quick_form(form) }}
+    </ul>
+    {% endif %}
+</ul>

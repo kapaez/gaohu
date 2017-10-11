@@ -1,0 +1,8 @@
+亲爱的 {{ user.username }},
+
+欢迎来到高乎，现在可以点击下面的链接进行验证：
+
+
+{{ url_for('user.confirm', token=token, _external=True) }}
+
+此邮件不需要回复。

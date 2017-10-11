@@ -1,0 +1,8 @@
+<p>亲爱的 {{ user.username }},</p>
+<p>欢迎来到 <b>高乎</b>！</p>
+<p>为了验证用户信息 <a href="{{ url_for('user.confirm', token=token, _external=True) }}">点击这里</a>.</p>
+<p>或者你可以复制一下链接到浏览器</p>
+<p>{{ url_for('user.confirm', token=token, _external=True) }}</p>
+<p>欢迎来到高呼</p>
+<p>高鹏</p>
+<p><small>此邮件不需要回复</small></p>

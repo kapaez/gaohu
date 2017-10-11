@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}高鹏的博客{% endblock %}
+
+{% block page_content %}
+<div style="margin-top:10px;padding-top: 20px;padding-bottom: 20px;">
+    {% if current_user.can(Permission.WRITE_ARTICLES) %}
+    {{ wtf.quick_form(form) }}
+    {% endif %}
+</div>
+<div class="post-tabs">
+    <ul class="nav nav-tabs">
+        <li {% if not show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_all') }}">所有</a></li>
+        {% if current_user.is_authenticated %}
+        <li {% if show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_followed') }}">时间线</a></li>
+        {% endif %}
+    </ul>
+    {% include '_posts.html' %}
+</div>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+{% endblock %}

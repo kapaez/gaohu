@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "bootstrap/base.html" %}
+
+{% block title %}高乎{% endblock %}
+
+{% block head %}
+{{ super() }}
+{{ moment.include_jquery() }}
+{{ moment.include_moment() }}
+{{ moment.lang("zh-CN") }}
+<link rel="shortcut icon" href="{{ url_for('static', filename='timg.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='timg.ico') }}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="jumbotron">
+
+        <div class="container">
+            <h1>赞美一下自己吧</h1>
+            <h1>求知欲是一种稀缺的天赋：）</h1>
+            <p>Had I not seen the Sun</p>
+            <p>I could have borne the shade</p>
+            <p>But Light a newer Wilderness</p>
+            <p>My Wilderness has made</p>
+            <p><a class="btn btn-primary btn-lg" href="trick" role="button">了解高乎的主人</a></p>
+        </div>
+    </div>
+{% endblock %}
+</html>

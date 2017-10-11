@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}高呼 -{% endblock %}
+
+{% block page_content %}
+    {% include '_answers.html' %}
+    {% if pagination %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=posts[0].id) }}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
