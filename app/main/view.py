@@ -199,3 +199,11 @@ def post(id):
 @main.route('/trick', methods=['GET', ])
 def trick():
     return render_template('trick.html')
+
+@main.route('/qindex', methods=['GET', ])
+def qindex():
+    return render_template('qindex.html')
+
+@main.route('/qsource', methods=['GET', ])
+def qsource():
+    return render_template('qsource.html')
