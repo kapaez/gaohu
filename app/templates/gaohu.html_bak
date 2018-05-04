@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/css/zhihu.css">
     <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
-  </head>
+  <link href="../static/css/qindex.css" rel="stylesheet"></head>
   <body>
   	<div>
 			<nav class="navbar">
@@ -43,5 +43,5 @@
 				<button type="button" class="btn"><img width="30" height="30" src="/static/img/user.jpg"></button>
 			</nav>  	
   	</div>
-  </body>
+  <script type="text/javascript" src="../static/js/jquery.js"></script><script type="text/javascript" src="../static/js/qindex.js"></script></body>
 </html>
