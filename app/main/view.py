@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,redirect,url_for,session,flash,\
-     request, make_response
+     request, make_response, jsonify
 from flask_login import login_required, current_user, current_app
 from . import main
 from .forms import NameForm, EditProfileForm, EditProfileAdminForm, CreateQuestion,\
@@ -10,6 +10,7 @@ from .. import db
 from ..decorators import admin_required, permission_required
 from ..models import Answer, User, Question, Role, Permission
 
+import json
 @main.route('/all')
 @login_required
 def show_all():
@@ -91,23 +92,9 @@ def edit_profile_admin(id):
     form.about_me.data = user.about_me
     return render_template('edit_profile.html', form=form, user=user)
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route('/', methods=['GET'])
 def index():
-    form = CreateQuestion()
-    page = request.args.get('page', 1, type=int)
-    show_followed = False
-    if current_user.is_authenticated:
-        show_followed = bool(request.cookies.get('show_followed', ''))
-    if show_followed:
-        query = current_user.followed_posts
-    else:
-        query = Answer.query
-    pagination = query.order_by(Answer.timestamp.desc()).paginate(
-        page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
-        error_out=False)
-    posts = pagination.items
-    return render_template('index.html', posts=posts,form=form,
-                           show_followed=show_followed, pagination=pagination)
+    return render_template('vuedemo.html')
 
 @main.route('/follow/<username>')
 @login_required
@@ -207,3 +194,19 @@ def qindex():
 @main.route('/qsource', methods=['GET', ])
 def qsource():
     return render_template('qsource.html')
+
+@main.route('/gaohu', methods=['GET', ])
+def gaohu():
+    return render_template('gaohu.html')
+
+@main.route('/gaohuapi', methods=['GET', ])
+def answerjson():
+    user = User.query.filter_by(id =3).first()
+    answers = db.session.query(Answer.body.label('Ansbody'),Question.body.label('Qbody'),User.username) \
+    .filter(Answer.author_id == 3).filter(User.id == Answer.author_id).filter(Question.id == Answer.Question_id).all()
+    as_dict = [answer._asdict() for answer in answers]
+    jsonlist = json.dumps(as_dict,ensure_ascii=False).encode('utf8')
+    jsonlist= jsonify(jsonlist)
+    jsonlist.headers.add('Access-Control-Allow-Origin', '*')
+    return jsonlist
+
