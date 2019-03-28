@@ -1,0 +1,18 @@
+
+# 请为您的变更输入提交说明。以 '#' 开始的行将被忽略，而一个空的提交 说明将会终止提交。 位于分支 master 您的分支与上游分支 'origin/master' 
+# 一致。
+#
+# 要提交的变更：
+#	新文件： app/__init__.pyc 新文件： app/decorators.pyc 新文件： app/email.pyc 新文件： app/main/__init__.pyc 新文件： app/main/forms.pyc 
+#	修改： app/main/view.py 新文件： app/main/view.pyc 新文件： app/models.pyc 新文件： 
+#	app/static/css/app.b0138cb2354ea6245887284ff10c16ef.css 新文件： app/static/css/app.b0138cb2354ea6245887284ff10c16ef.css.map 新文件： 
+#	app/static/css/app.fe32b356433bdf9af06c95330b9ea1ce.css 新文件： app/static/css/app.fe32b356433bdf9af06c95330b9ea1ce.css.map 新文件： 
+#	app/static/css/gaohu.css 新文件： app/static/img/anonymous.jpg 新文件： app/static/img/user.jpg 新文件： 
+#	app/static/js/app.ad1314115c9d02002102.js 新文件： app/static/js/app.ad1314115c9d02002102.js.map 新文件： app/static/js/gaohu.js 修改： 
+#	app/static/js/jquery.js 新文件： app/static/js/manifest.2ae2e69a05c33dfc65f8.js 新文件： 
+#	app/static/js/manifest.2ae2e69a05c33dfc65f8.js.map 新文件： app/static/js/vendor.d6ed696fec44e219450e.js 新文件： 
+#	app/static/js/vendor.d6ed696fec44e219450e.js.map 修改： app/templates/_answers.html 修改： app/templates/gaohu.html 新文件： 
+#	app/templates/vuedemo.html 新文件： app/user/__init__.pyc 新文件： app/user/forms.pyc 新文件： app/user/view.pyc 修改： config.py 
+#	修改： data-dev.sqlite
+#
+
