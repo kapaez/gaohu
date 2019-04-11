@@ -33,15 +33,15 @@ def unconfirmed():
 @user.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    user = User.query.filter_by(email=form.email.data).first()
+    user = User.query.filter_by(username=form.username.data).first()
     if user :
-        print user.email
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             return 'ok'
-    return 'ok'
+    return 404
 
-@user.route('/logout', methods=['GET','POST'])
+@user.route('/logout', methods=['GET',])
+@login_required
 def logout():
     logout_user()
     return 'ok'
@@ -50,7 +50,7 @@ def logout():
 @login_required
 def api_check():
     return  jsonify({'username':'高鹏','authcheck':'true','birthday':'1990.9.1',
-                        'statments':['测试用例一','测试用例二','测试用例三']})
+                        'orderNum':[1,3,0,0,0]})
 
 @user.route('/register',methods=['GET', 'POST'])
 def register():

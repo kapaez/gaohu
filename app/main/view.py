@@ -8,9 +8,10 @@ from .forms import NameForm, EditProfileForm, EditProfileAdminForm, CreateQuesti
 
 from .. import db
 from ..decorators import admin_required, permission_required
-from ..models import Answer, User, Question, Role, Permission
+from ..models import Answer, User, Question, Role, Permission, Goods
 
 import json
+import os
 @main.route('/all')
 @login_required
 def show_all():
@@ -94,7 +95,7 @@ def edit_profile_admin(id):
 
 @main.route('/', methods=['GET'])
 def index():
-    return render_template('vuedemo.html')
+    return render_template('shop.html')
 
 @main.route('/follow/<username>')
 @login_required
@@ -207,6 +208,47 @@ def answerjson():
     as_dict = [answer._asdict() for answer in answers]
     jsonlist = json.dumps(as_dict,ensure_ascii=False).encode('utf8')
     jsonlist= jsonify(jsonlist)
+    jsonlist.headers.add('Access-Control-Allow-Origin', '*')
+    return jsonlist
+
+@main.route('/goods', methods=['GET',])
+def goods():
+    mallSubId=request.args.get('mallSubId')
+    x=Goods.query.filter_by(sub_id=mallSubId).all()
+    gList= []
+    for i in x:
+        y = {}
+        y['image']=i.image
+        y['name']=i.name
+        y['price']=i.present_price
+        y['orl_price']= i.orl_price
+        y['id']=i.good_id
+        gList.append(y)
+    jsonlist= jsonify(gList)
+    jsonlist.headers.add('Access-Control-Allow-Origin', '*')
+    return jsonlist
+
+@main.route('/goodsdetail', methods=['GET',])
+def gooodsdetail():
+    good_id = request.args.get('goodsId')
+    x=Goods.query.filter_by(good_id = good_id).first()
+    if x:
+        y = {}
+        y['image']=x.image
+        y['name']=x.name
+        y['price']=x.present_price
+        y['detail']= x.detail
+        y['good_id']=x.good_id
+        y['amount']=x.amount
+        jsonlist= jsonify(y)
+        jsonlist.headers.add('Access-Control-Allow-Origin', '*')
+        return jsonlist
+    return 'xx',404
+
+@main.route('/homeitem', methods=['GET', ])
+def homeitem():
+    path = os.path.abspath(os.path.join(os.path.dirname(__file__),".."))
+    jsonlist= jsonify(json.load(open(path+'/goods.json')))
     jsonlist.headers.add('Access-Control-Allow-Origin', '*')
     return jsonlist
 

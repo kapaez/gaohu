@@ -11,6 +11,7 @@ import time
 from random import randint
 from markdown import markdown
 import json
+import os
 from . import login_manager
 from . import db
 import random
@@ -77,6 +78,34 @@ class Question(db.Model):
                             backref=db.backref('question', lazy='joined'),
                             lazy='dynamic',
                             cascade='all, delete-orphan')
+
+class Goods(db.Model):
+    __tablename__ = 'goods'
+    id = db.Column(db.Integer, primary_key=True)
+    good_id = db.Column(db.String(30))
+    goods_serlal_number= db.Column(db.String(30))
+    shop_id= db.Column(db.String(30))
+    sub_id= db.Column(db.Integer)
+    name = db.Column(db.String(50))
+    orl_price= db.Column(db.Float)
+    present_price= db.Column(db.Float)
+    amount= db.Column(db.Integer)
+    detail= db.Column(db.Text)
+    image= db.Column(db.Text)
+    image_path= db.Column(db.Text)
+
+    @staticmethod
+    def init_data():
+        path = os.path.abspath(os.path.dirname(__file__))
+        datas = json.load(open(path + '/goods2.json'))
+        for data in datas:
+            good = Goods(good_id=data["id"],goods_serlal_number=data["goods_serlal_number"], \
+                         shop_id=data["shop_id"], sub_id=data["sub_id"], name=data["name"], \
+                         orl_price= data["orl_price"], present_price= data["present_price"], \
+                         amount = data["amount"], detail=data["detail"], image=data["image"], \
+                         image_path=data["image_path"])
+            db.session.add(good)
+        db.session.commit()
 
 class Role(db.Model):
     __tablename__ = 'roles'
